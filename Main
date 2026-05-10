@@ -1,0 +1,97 @@
+package Task121;
+
+public class DateTask {
+
+    // instance variables (now private)
+    private byte day;
+    private byte month;
+    private short year;
+
+    // No-args constructor using constructor chaining
+    public DateTask() {
+        this(1, 1, 1);
+    }
+
+    // Constructor with parameters
+    public DateTask(int m, int d, int y) {
+        setDate(m, d, y);
+    }
+
+    // setDate method
+    public void setDate(int m, int d, int y) {
+        if (valid(d, m, y)) {
+            this.day = (byte) d;
+            this.month = (byte) m;
+            this.year = (short) y;
+        } else {
+            this.day = 0;
+            this.month = 0;
+            this.year = 0;
+        }
+    }
+
+    // toString in MM/DD/YYYY format
+    public String toString() {
+        return month + "/" + day + "/" + year;
+    }
+
+    // getters
+    public int getDay() {
+        return day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    // setters (return 0 if invalid, otherwise set value)
+
+    public int setDay(int day) {
+        if (valid(day, month, year)) {
+            this.day = (byte) day;
+            return this.day;
+        }
+        return 0;
+    }
+
+    public int setMonth(int month) {
+        if (valid(day, month, year)) {
+            this.month = (byte) month;
+            return this.month;
+        }
+        return 0;
+    }
+
+    public int setYear(int year) {
+        if (valid(day, month, year)) {
+            this.year = (short) year;
+            return this.year;
+        }
+        return 0;
+    }
+
+    // validation method
+    private boolean valid(int day, int month, int year) {
+
+        if (day > 31 || day < 1 || month > 12 || month < 1 || year < 1) {
+            return false;
+        }
+
+        switch (month) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                return day <= 30;
+
+            case 2:
+                return day <= 28 || (day == 29 && year % 4 == 0);
+        }
+
+        return true;
+    }
+}
